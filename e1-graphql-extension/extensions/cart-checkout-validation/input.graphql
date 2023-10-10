@@ -1,0 +1,23 @@
+query Input {
+  cart {
+    lines {
+      quantity
+      cost {
+        totalAmount {
+          amount
+          currencyCode
+        }
+      }
+      merchandise {
+        ... on ProductVariant {
+          product {
+            id
+          }
+        }
+      }
+    }
+    buyerIdentity {
+      email
+    }
+  }
+}

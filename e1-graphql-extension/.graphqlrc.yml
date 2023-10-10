@@ -1,0 +1,4 @@
+projects:
+  validation:
+    documents: ./extensions/cart-checkout-validation/**/*.graphql
+    schema: ./extensions/cart-checkout-validation/schema.graphql
