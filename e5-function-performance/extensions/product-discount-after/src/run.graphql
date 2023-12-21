@@ -1,0 +1,23 @@
+query RunInput($tags: [String!]!) {
+  cart {
+    lines {
+      merchandise {
+        __typename
+        ...on ProductVariant {
+          id
+          product {
+            hasTags(tags: $tags) {
+              tag
+              hasTag
+            }
+          }
+        }
+      }
+    }
+  }
+  discountNode {
+    metafield(namespace: "$app:e5-function-performance", key: "function-configuration") {
+      value
+    }
+  }
+}
