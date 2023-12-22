@@ -35,42 +35,38 @@ export function run(input) {
     return map;
   }, new Map())
 
-  const discounts = input.cart.lines.reduce(
-    /** @param {Discount[]} acc */
-    (acc, cartLine) => {
-      if (cartLine.merchandise.__typename != "ProductVariant") {
-        return acc;
-      }
+  /** @type {Discount[]} */
+  const discounts = [];
+  for (let cartLine of input.cart.lines) {
+    if (cartLine.merchandise.__typename != "ProductVariant") {
+      continue;
+    }
 
-      cartLine.merchandise.product.hasTags.forEach(tag => {
-        if (!tag.hasTag) {
-          return;
-        }
-        const percentOff = offers.get(tag.tag);
-        if (!percentOff) {
-          return;
-        }
-        acc.push({
-          targets: [
-            {
-              productVariant: {
-                id: cartLine.merchandise.id
-              }
-            }
-          ],
-          value: {
-            percentage: {
-              value: percentOff
+    for (let tag of cartLine.merchandise.product.hasTags) {
+      if (!tag.hasTag) {
+        continue;
+      }
+      const percentOff = offers.get(tag.tag);
+      if (!percentOff) {
+        continue;
+      }
+      discounts[discounts.length] = {
+        targets: [
+          {
+            productVariant: {
+              id: cartLine.merchandise.id
             }
           }
-        });
-      })
-
-      return acc;
-    },
-    (/** @param {Discount[]} acc */ [])
-  );
-
+        ],
+        value: {
+          percentage: {
+            value: percentOff
+          }
+        }
+      };
+      break;
+    }
+  }
   
   // const discounts = configuration.flatMap((config) => {
   //   return lines.filter(
