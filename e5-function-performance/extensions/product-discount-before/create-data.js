@@ -45,15 +45,15 @@ for (let i = 0; i < 100; i++) {
     line.merchandise.product.hasTags = [
         {
             "tag": "bronze",
-            "hasTag": i%5 == 0
+            "hasTag": i%17 == 0
         },
         {
             "tag": "silver",
-            "hasTag": i%7 == 0
+            "hasTag": i%27 == 0
         },
         {
             "tag": "gold",
-            "hasTag": i%17 == 0
+            "hasTag": i%51 == 0
         }
     ]
     input.cart.lines.push(line);
