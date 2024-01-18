@@ -66,29 +66,6 @@ export function run(input) {
       };
     }
   }
-  
-  // const discounts = configuration.flatMap((config) => {
-  //   return lines.filter(
-  //       line => line.merchandise.__typename == "ProductVariant" &&
-  //       line.merchandise.product.hasTags.find(tag => tag.tag == config.tag && tag.hasTag)
-  //     ).map(line => /** @type {Discount} */ {
-  //       return {
-  //         value: {
-  //           percentage: {
-  //             value: parseFloat(config.percentOff)
-  //           }
-  //         },
-  //         targets: [
-  //           {
-  //             productVariant: {
-  //               // @ts-ignore
-  //               id: line.merchandise.id
-  //             }
-  //           }
-  //         ],
-  //       };
-  //     });
-  // });
 
   return {
     discountApplicationStrategy: DiscountApplicationStrategy.All,
