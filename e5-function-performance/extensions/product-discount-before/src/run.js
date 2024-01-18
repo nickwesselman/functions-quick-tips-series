@@ -34,10 +34,11 @@ export function run(input) {
 
   const lines = input.cart.lines;
   const discounts = configuration.flatMap((config) => {
-    return lines.filter(
-        line => line.merchandise.__typename == "ProductVariant" &&
-        line.merchandise.product.hasTags.find(tag => tag.tag == config.tag && tag.hasTag)
-      ).map(line => /** @type {Discount} */ {
+    return lines
+      .filter(line => line.merchandise.__typename == "ProductVariant")
+      // @ts-ignore
+      .filter(line => line.merchandise.product.hasTags.find(tag => tag.tag == config.tag && tag.hasTag))
+      .map(line => /** @type {Discount} */ {
         console.error(JSON.stringify(line));
         return {
           value: {
